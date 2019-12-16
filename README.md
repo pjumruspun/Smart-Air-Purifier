@@ -2,20 +2,34 @@
 
 ต้องติดตั้ง 
 
+## ฝั่ง Server
 1. Python 3
-2. numpy
-3. scipy
-4. pygame
+2. Flask
+3. linebot
+4. ngrok
 
-หากลง numpy กับ scipy ไม่เป็นโปรดใช้ Anaconda ช่วย 
+## ฝั่ง Client
+สิ่งที่ต้องการ
+1. nodeMCU
+2. Solid State Relay (SSR)
+3. pm 2.5 sensor (sharp gp2y10)
+4. STM32F4 discovery
 
-รัน server
+## Programs (IDEs)
+1. STM32Cube
+2. Arduino IDE
 
+## Instruction
+1. run server
 ```
-python server.py
+python3 testserver.py
 ```
-
-สามารถทดลองยิง request ได้ผ่าน web browser ที่ http://localhost:5000/?key=10 เป็นต้น
+2. run ngrok
+```
+ngrok http 80
+```
+3. connect LAN to client
+4. enjoy!
 
 ### EMBEDDED SYS LAB
 testserver.py -> Server หลัก ต้อง handle request+LINE API
