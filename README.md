@@ -33,4 +33,5 @@ ngrok http 80
 
 ### EMBEDDED SYS LAB
 testserver.py -> Server หลัก ต้อง handle request+LINE API
+
 Arduino Code -> Code ฝั่ง Client (NodeMCU)
