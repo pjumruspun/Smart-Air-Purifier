@@ -45,11 +45,13 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text='Auto mode enabled')
         )
+        request_status = "auto"
     elif input_str == 'Manual':
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text='Manual mode enabled')
         )
+        request_status = "manual"
     elif input_str == 'Dust level':
         line_bot_api.reply_message(
             event.reply_token,
@@ -79,7 +81,7 @@ def helloesp():
 
 @app.route('/status_request', methods=['GET'])
 def status_request():
-    print(request_status)
+    # print(request_status)
     return request_status
 
 
