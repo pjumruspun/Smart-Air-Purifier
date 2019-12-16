@@ -10,12 +10,18 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+dust = "haha";
 request_status = "idle"
  
 app = Flask(__name__)
 
 line_bot_api = LineBotApi('dLblb4VDb8m8UqCZ72OK6iZBvaI+qYod18SSqX8H/OGvPVqkM9J/1kA0ON387QBPZs249em7lobV/oI+VSlzVf9Di7IzHS2Dftdi+TMLF8FxIPZ8e7ZdwBiayIT/kx1a0PQYOJ7S8pR3X9O6np9SewdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('060622f7370b033cba6950d2b56c524c')
+
+def multiplyByHundred(dustLevel):
+    tmp = float(dustLevel)
+    tmp *= 100
+    return str(tmp)
 
 @app.route("/callback", methods=['GET', 'POST'])
 def callback():
@@ -39,6 +45,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     global request_status
+    global dust
     input_str = event.message.text
     if input_str == 'Auto':
         line_bot_api.reply_message(
@@ -57,23 +64,31 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text='Dust level = some random number')
         )
-    elif input_str == 'on':
+    elif input_str == 'On':
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text='Turn the system on!')
         )
         request_status = "on"
-    elif input_str == 'off':
+    elif input_str == 'Off':
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text='Turn the system off!')
         )
         request_status = "off"
+    elif input_str == 'Dust':
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text='Dust level = ' + multiplyByHundred(dust))
+        )
+        request_status = "dust"
     else:
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text='Bot does not know what are you talking about.')
         )
+
 
 @app.route('/helloesp', methods=['GET'])
 def helloesp():
@@ -81,7 +96,11 @@ def helloesp():
 
 @app.route('/status_request', methods=['GET'])
 def status_request():
-    # print(request_status)
+    global dust
+    dust_level = request.args.get('dust_level')
+    dust = dust_level
+
+    # print("Dust level = " + dust_level)
     return request_status
 
 

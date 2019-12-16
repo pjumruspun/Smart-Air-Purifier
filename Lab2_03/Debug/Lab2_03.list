@@ -7,23 +7,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00003034  08000190  08000190  00010190  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000058  080031c4  080031c4  000131c4  2**2
+  2 .rodata       00000054  080031c4  080031c4  000131c4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  0800321c  0800321c  00020070  2**0
+  3 .ARM.extab    00000000  08003218  08003218  00020070  2**0
                   CONTENTS
-  4 .ARM          00000008  0800321c  0800321c  0001321c  2**2
+  4 .ARM          00000008  08003218  08003218  00013218  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08003224  08003224  00020070  2**0
+  5 .preinit_array 00000000  08003220  08003220  00020070  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08003224  08003224  00013224  2**2
+  6 .init_array   00000004  08003220  08003220  00013220  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08003228  08003228  00013228  2**2
+  7 .fini_array   00000004  08003224  08003224  00013224  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000070  20000000  0800322c  00020000  2**2
+  8 .data         00000070  20000000  08003228  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          000000b8  20000070  0800329c  00020070  2**2
+  9 .bss          000000b8  20000070  08003298  00020070  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  20000128  0800329c  00020128  2**0
+ 10 ._user_heap_stack 00000600  20000128  08003298  00020128  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00020070  2**0
                   CONTENTS, READONLY
@@ -3971,7 +3971,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  80019d2:	bf00      	nop
  80019d4:	40023c00 	.word	0x40023c00
  80019d8:	40023800 	.word	0x40023800
- 80019dc:	080031d0 	.word	0x080031d0
+ 80019dc:	080031cc 	.word	0x080031cc
  80019e0:	20000008 	.word	0x20000008
 
 080019e4 <HAL_RCC_GetSysClockFreq>:
@@ -4207,7 +4207,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8001b7c:	4618      	mov	r0, r3
  8001b7e:	bd80      	pop	{r7, pc}
  8001b80:	40023800 	.word	0x40023800
- 8001b84:	080031e0 	.word	0x080031e0
+ 8001b84:	080031dc 	.word	0x080031dc
 
 08001b88 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -4233,7 +4233,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8001ba4:	4618      	mov	r0, r3
  8001ba6:	bd80      	pop	{r7, pc}
  8001ba8:	40023800 	.word	0x40023800
- 8001bac:	080031e0 	.word	0x080031e0
+ 8001bac:	080031dc 	.word	0x080031dc
 
 08001bb0 <HAL_UART_Init>:
   * @param  huart  Pointer to a UART_HandleTypeDef structure that contains
@@ -5359,7 +5359,7 @@ int main(void)
  800235c:	17db      	asrs	r3, r3, #31
  800235e:	1ad3      	subs	r3, r2, r3
  8002360:	62fb      	str	r3, [r7, #44]	; 0x2c
-			  size = sprintf(buf, "<Value=%d>", value);
+			  size = sprintf(buf, "<%d>", value);
  8002362:	1d3b      	adds	r3, r7, #4
  8002364:	6aba      	ldr	r2, [r7, #40]	; 0x28
  8002366:	4911      	ldr	r1, [pc, #68]	; (80023ac <main+0xfc>)
@@ -6482,7 +6482,7 @@ LoopFillZerobss:
   ldr   sp, =_estack     /* set stack pointer */
  8002920:	20020000 	.word	0x20020000
   ldr  r3, =_sidata
- 8002924:	0800322c 	.word	0x0800322c
+ 8002924:	08003228 	.word	0x08003228
   ldr  r0, =_sdata
  8002928:	20000000 	.word	0x20000000
   ldr  r3, =_edata
@@ -6535,10 +6535,10 @@ Infinite_Loop:
  800297a:	4798      	blx	r3
  800297c:	3501      	adds	r5, #1
  800297e:	e7f2      	b.n	8002966 <__libc_init_array+0x1e>
- 8002980:	08003224 	.word	0x08003224
- 8002984:	08003224 	.word	0x08003224
- 8002988:	08003224 	.word	0x08003224
- 800298c:	08003228 	.word	0x08003228
+ 8002980:	08003220 	.word	0x08003220
+ 8002984:	08003220 	.word	0x08003220
+ 8002988:	08003220 	.word	0x08003220
+ 800298c:	08003224 	.word	0x08003224
 
 08002990 <memset>:
  8002990:	4402      	add	r2, r0
@@ -6856,9 +6856,9 @@ Infinite_Loop:
  8002c68:	f000 f882 	bl	8002d70 <_printf_i>
  8002c6c:	e7ea      	b.n	8002c44 <_svfiprintf_r+0x1b0>
  8002c6e:	bf00      	nop
- 8002c70:	080031e8 	.word	0x080031e8
- 8002c74:	080031ee 	.word	0x080031ee
- 8002c78:	080031f2 	.word	0x080031f2
+ 8002c70:	080031e4 	.word	0x080031e4
+ 8002c74:	080031ea 	.word	0x080031ea
+ 8002c78:	080031ee 	.word	0x080031ee
  8002c7c:	00000000 	.word	0x00000000
  8002c80:	080029e1 	.word	0x080029e1
 
@@ -7194,8 +7194,8 @@ Infinite_Loop:
  8002f82:	f884 3042 	strb.w	r3, [r4, #66]	; 0x42
  8002f86:	f104 0542 	add.w	r5, r4, #66	; 0x42
  8002f8a:	e76c      	b.n	8002e66 <_printf_i+0xf6>
- 8002f8c:	080031f9 	.word	0x080031f9
- 8002f90:	0800320a 	.word	0x0800320a
+ 8002f8c:	080031f5 	.word	0x080031f5
+ 8002f90:	08003206 	.word	0x08003206
 
 08002f94 <memcpy>:
  8002f94:	b510      	push	{r4, lr}

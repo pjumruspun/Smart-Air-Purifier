@@ -18,10 +18,12 @@ ESP8266WiFiMulti WiFiMulti;
 float sensorValue = 0;
 float calcVoltage = 0;
 float dustDensity = 0;
-float accumulatedValue = 0;
+//float accumulatedValue = 0;
+
+int receivedInt = -1;
 
 int autoMode = 0;
-const float dustThreshold = 0.25;
+const float dustThreshold = 0.30;
 const int MAX_IGN_VARIABLE = 10;
 int ignoringVariable = 0;
 float lastDustLevel = 0;
@@ -40,10 +42,10 @@ SoftwareSerial mySerial(D6, D5); // RX | TX
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(ledPin, OUTPUT);
+  //pinMode(ledPin, OUTPUT);
   pinMode(digitalPin, INPUT);
   pinMode(ssrPin, OUTPUT);
-  pinMode(analogPin, INPUT);
+  //pinMode(analogPin, INPUT);
   Serial.begin(115200); 
   pinMode(D6, INPUT);
   pinMode(D5, OUTPUT);
@@ -53,13 +55,20 @@ void setup() {
     Serial.flush();
     delay(1000);
   }
-  digitalWrite(ledPin, HIGH);
+  //digitalWrite(ledPin, HIGH);
   //digitalWrite(ssrPin, HIGH);
   WiFi.mode(WIFI_STA);
   WiFiMulti.addAP("SprkZ", "0000000000");
+  Serial.print("Connecting");
+  while (WiFiMulti.run() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println("\nConnected!!");
 }
 
 void loop() {
+  /*
   digitalWrite(ledPin, LOW);
   delayMicroseconds(280);
   sensorValue = analogRead(analogPin);
@@ -76,14 +85,14 @@ void loop() {
     //Serial.printf("Analog raw = %f, CalcVoltage = %f, DustDensity = %f\n", accumulatedValue, calcVoltage, dustDensity);
     accumulatedValue = 0;
   }
-  //Serial.println(mySerial.available());
+  */
 
   
   
   while (mySerial.available() > 0){
     char receivedChar = mySerial.read();
     //Serial.println("I'm in!");
-    Serial.println(receivedChar);
+    //Serial.println(receivedChar);
     if(inProgress == 1){
       if(receivedChar != endChar){
         receivedStr[idx] = receivedChar;
@@ -95,23 +104,34 @@ void loop() {
         receivedStr[idx] = 0;
         inProgress = 0;
         idx = 0;
-        Serial.println(receivedStr);
+        //Serial.println(receivedStr);
+        sscanf(receivedStr, "%d", &receivedInt);
+        calcVoltage = receivedInt*(5.0/1024);
+        dustDensity = 0.17*calcVoltage-0.1;
+        Serial.printf("Dust density = %f\n", dustDensity);
+        
       }
     }
     else if(receivedChar == startChar){
       inProgress = 1;
     }
   }
+
+  if(iter%100 == 0) processAutoMode(dustDensity); 
   
   if ((WiFiMulti.run() == WL_CONNECTED) && iter%100 == 0) {
-    Serial.println("CONNECTED!!!");
+    //Serial.println("CONNECTED!!!");
     
     char token[10];
     HTTPClient http;
   
     //Serial.print("[HTTP] begin...\n");
-    
-    http.begin(URL); //HTTP
+
+    String realURL = URL;
+    realURL.concat("?dust_level=");
+    realURL.concat(String(dustDensity));
+    Serial.println(realURL);
+    http.begin(realURL); //HTTP
     //Serial.println(URL);
     
     //Serial.print("[HTTP] GET...\n");
@@ -129,7 +149,7 @@ void loop() {
         char payload[50];
         useless.toCharArray(payload, 50);
         //Serial.println(payload);
-        processStatus(payload);
+        processStatus(payload, dustDensity);
       
       } else {
         Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
@@ -141,7 +161,7 @@ void loop() {
   iter++;
 } 
 
-void processStatus(char* statusRequest){
+void processStatus(char* statusRequest, float dustLevel){
   Serial.printf("Status processing: %s\n", statusRequest);
   if(strcmp(statusRequest, "on") == 0){
     if(autoMode){
@@ -160,8 +180,11 @@ void processStatus(char* statusRequest){
     digitalWrite(ssrPin, LOW);
   }
   else if(strcmp(statusRequest, "auto") == 0){
-    Serial.println("turning the auto mode on!");
-    autoMode = 1;
+    if(!autoMode){
+      Serial.println("turning the auto mode on!");
+      autoMode = 1;
+      digitalWrite(ssrPin, LOW);
+    }
   }
   else if(strcmp(statusRequest, "manual") == 0){
     Serial.println("turning the auto mode off!");
@@ -176,11 +199,12 @@ void processStatus(char* statusRequest){
 }
 
 void processAutoMode(float dustLevel){
-  if(dustLevel > dustThreshold && autoMode){
+  
+  if(autoMode){
+    if(dustLevel > dustThreshold){
       Serial.println("turning the device on by auto mode!");
       ignoringVariable = MAX_IGN_VARIABLE;
-  }
-  if(autoMode){
+    }
     if(ignoringVariable > 0){
       digitalWrite(ssrPin, HIGH);
       Serial.println("\t still turned on...");

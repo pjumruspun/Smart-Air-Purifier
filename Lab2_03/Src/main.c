@@ -119,7 +119,7 @@ int main(void)
 		  iter++;
 		  if(iter % 100 == 0){
 			  acc /= 100;
-			  size = sprintf(buf, "<Value=%d>", value);
+			  size = sprintf(buf, "<%d>", value);
 			  HAL_UART_Transmit(&huart3, buf, size, 1000);
 			  acc = 0;
 		  }

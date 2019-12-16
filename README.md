@@ -20,7 +20,7 @@
 2. Arduino IDE
 
 ## Instruction
-1. run server
+1. run python flask server
 ```
 python3 testserver.py
 ```
@@ -28,10 +28,13 @@ python3 testserver.py
 ```
 ngrok http 80
 ```
-3. connect LAN to client
-4. enjoy!
+3. run stm32
+	3.1) เปิด STM Project `Lab2_03`
+	3.2) Debug main.c
+4. connect LAN to client
+5. enjoy!
 
 ### EMBEDDED SYS LAB
 testserver.py -> Server หลัก ต้อง handle request+LINE API
-
-Arduino Code -> Code ฝั่ง Client (NodeMCU)
+Lab2_03 -> Code ฝั่ง Sensor Input (STM32)
+SSR_tester -> Code ฝั่ง Client (NodeMCU)
