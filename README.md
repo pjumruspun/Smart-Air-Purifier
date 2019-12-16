@@ -38,6 +38,9 @@ ngrok http 80
 5. enjoy!
 
 ### EMBEDDED SYS LAB
+
 testserver.py -> Server หลัก ต้อง handle request+LINE API
+
 Lab2_03 -> Code ฝั่ง Sensor Input (STM32)
+
 SSR_tester -> Code ฝั่ง Client (NodeMCU)
