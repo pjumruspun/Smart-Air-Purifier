@@ -1,0 +1,16 @@
+2019-09-04 13:06:56,074 [INFO] Activator:176 - 
+
+
+2019-09-04 13:06:56,076 [INFO] Activator:177 - !SESSION log4j initialized
+2019-09-04 13:07:23,946 [INFO] SNIAwareHttpClient:695 - I/O exception (java.net.SocketException) caught when processing request to {}->http://sw-center.st.com:80: Connection reset
+2019-09-04 13:07:23,948 [INFO] SNIAwareHttpClient:705 - Retrying request to {}->http://sw-center.st.com:80
+2019-09-04 13:07:44,966 [INFO] SNIAwareHttpClient:695 - I/O exception (java.net.SocketException) caught when processing request to {}->http://sw-center.st.com:80: Connection reset
+2019-09-04 13:07:44,967 [INFO] SNIAwareHttpClient:705 - Retrying request to {}->http://sw-center.st.com:80
+2019-09-04 13:08:47,503 [INFO] Activator:176 - 
+
+
+2019-09-04 13:08:47,588 [INFO] Activator:177 - !SESSION log4j initialized
+2019-12-16 14:58:34,557 [INFO] Activator:176 - 
+
+
+2019-12-16 14:58:34,580 [INFO] Activator:177 - !SESSION log4j initialized

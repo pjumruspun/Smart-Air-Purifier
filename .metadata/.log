@@ -1,0 +1,39 @@
+!SESSION 2019-12-16 15:00:47.283 -----------------------------------------------
+eclipse.buildId=Version 1.0.2
+java.version=1.8.0_202
+java.vendor=AdoptOpenJdk
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2019-12-16 15:01:04.414
+!MESSAGE Log4j initialized with config file D:\Works\Smart Air Purifier\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2019-12-16 15:01:06.333
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain 4 4 2019-12-16 15:01:18.079
+!MESSAGE Type or version is empty: ; 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain 2 2 2019-12-16 15:01:18.080
+!MESSAGE Falling back to default toolchain
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain 4 4 2019-12-16 15:01:18.083
+!MESSAGE Type or version is empty: ; 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain 2 2 2019-12-16 15:01:18.085
+!MESSAGE Falling back to default toolchain
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain 4 4 2019-12-16 15:01:18.086
+!MESSAGE Type or version is empty: ; 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain 2 2 2019-12-16 15:01:18.088
+!MESSAGE Falling back to default toolchain
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain 4 4 2019-12-16 15:01:18.089
+!MESSAGE Type or version is empty: ; 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain 2 2 2019-12-16 15:01:18.090
+!MESSAGE Falling back to default toolchain
+
+!ENTRY org.eclipse.cdt.core 1 0 2019-12-16 15:01:24.680
+!MESSAGE Indexed 'Lab2_03' (25 sources, 102 headers) in 4.81 sec: 7,708 declarations; 30,829 references; 2 unresolved inclusions; 29 syntax errors; 145 unresolved names (0.37%)

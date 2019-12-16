@@ -4,6 +4,8 @@
 #include <ESP8266WiFiMulti.h>
 
 #include <ESP8266HTTPClient.h>
+#include <string.h>
+#include <String>
 
 ESP8266WiFiMulti WiFiMulti;
 
@@ -24,6 +26,15 @@ const int MAX_IGN_VARIABLE = 10;
 int ignoringVariable = 0;
 float lastDustLevel = 0;
 
+int inProgress = 0;
+const char startChar = '<';
+const char endChar = '>';
+
+const byte numberOfChar = 64;
+char receivedStr[numberOfChar];
+byte idx = 0;
+
+
 int iter = 0;
 SoftwareSerial mySerial(D6, D5); // RX | TX
 
@@ -34,6 +45,9 @@ void setup() {
   pinMode(ssrPin, OUTPUT);
   pinMode(analogPin, INPUT);
   Serial.begin(115200); 
+  pinMode(D6, INPUT);
+  pinMode(D5, OUTPUT);
+  mySerial.begin(115200);
   for (uint8_t t = 4; t > 0; t--) {
     Serial.printf("[SETUP] WAIT %d...\n", t);
     Serial.flush();
@@ -62,7 +76,32 @@ void loop() {
     //Serial.printf("Analog raw = %f, CalcVoltage = %f, DustDensity = %f\n", accumulatedValue, calcVoltage, dustDensity);
     accumulatedValue = 0;
   }
+  //Serial.println(mySerial.available());
+
   
+  
+  while (mySerial.available() > 0){
+    char receivedChar = mySerial.read();
+    //Serial.println("I'm in!");
+    Serial.println(receivedChar);
+    if(inProgress == 1){
+      if(receivedChar != endChar){
+        receivedStr[idx] = receivedChar;
+        idx++;
+        if(idx >= numberOfChar)
+          idx = numberOfChar - 1;
+      }
+      else{
+        receivedStr[idx] = 0;
+        inProgress = 0;
+        idx = 0;
+        Serial.println(receivedStr);
+      }
+    }
+    else if(receivedChar == startChar){
+      inProgress = 1;
+    }
+  }
   
   if ((WiFiMulti.run() == WL_CONNECTED) && iter%100 == 0) {
     Serial.println("CONNECTED!!!");
@@ -89,7 +128,7 @@ void loop() {
         String useless = http.getString();
         char payload[50];
         useless.toCharArray(payload, 50);
-        Serial.println(payload);
+        //Serial.println(payload);
         processStatus(payload);
       
       } else {
