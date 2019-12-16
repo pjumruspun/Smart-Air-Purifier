@@ -29,8 +29,11 @@ python3 testserver.py
 ngrok http 80
 ```
 3. run stm32
+
 	3.1) เปิด STM Project `Lab2_03`
+	
 	3.2) Debug main.c
+	
 4. connect LAN to client
 5. enjoy!
 
