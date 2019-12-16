@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab32ab4d-fc13-4317-a3f2-a6cb12f55276" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SSR_tester/SSR_tester.ino" beforeDir="false" afterPath="$PROJECT_DIR$/SSR_tester/SSR_tester.ino" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final_project/.settings/language.settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/final_project/.settings/language.settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/testserver.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +88,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="839" />
     <option name="y" value="126" />
     <option name="width" value="974" />
